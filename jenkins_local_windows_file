@@ -1,0 +1,45 @@
+node{
+    def mavenHome = tool name: 'maven3.9.4'
+    stage("1. code clone"){
+        git credentialsId: 'github_credentials', url: 'https://github.com/Kitzito/msa-dev'
+        //sh  "git clone https://github.com/Kitzito/msa-dev"
+    }
+    
+    stage("2. maven build"){
+        bat "mvn package"
+        //sh "{mavenHome}/bin/mvn package"
+    }
+    
+    stage ("3. Code Quality Analysis"){
+        bat "mvn sonar:sonar"
+        //sh "${mavenHome}/bin/mvn sonar:sonar"
+    }
+    
+    stage ("4. Upload to Nexus Backup Server"){
+        bat "mvn deploy"
+        //sh "${mavenHome}/bin/mvn deploy"
+    }
+    
+    stage("5. Deploy to UAT"){
+       deploy adapters: [tomcat9(credentialsId: 'kz_credentials', path: '', url: 'http://127.0.0.1:8080/')], contextPath: null, war: 'target/*.war'
+    }
+    
+    stage("6. Manual Approval Gate"){
+       echo "App is ready to review"
+       timeout(time:"5", unit:"HOURS"){
+           input message: 'Application ready for deployment, please review'
+       }
+    }
+    
+     stage("7. Deploy to Production"){
+       deploy adapters: [tomcat9(credentialsId: 'kz_credentials', path: '', url: 'http://127.0.0.1:8080/')], contextPath: null, war: 'target/*.war'
+    }
+    
+     stage("8. Email Notification"){
+      emailext body: '''Hello Team...
+
+Build is done.
+
+KZ''', recipientProviders: [developers(), upstreamDevelopers(), contributor()], subject: 'Build Status', to: 'mnkitzito@gmail.com'
+    }
+}
