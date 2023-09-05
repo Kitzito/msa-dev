@@ -15,8 +15,8 @@
 	Our anointed and extensive teaching approach takes our students with or without any IT Background to become Subject Matter Expect in IT, and DevOps automation.
 	Over 80% of our students are hired within 6 months of joining Landmark Technology.
 	Congratulations!! Welcome to Landmark Technology!! Welcome to your ENVIABLE IT CAREER.
-	We offer interview preparations and job assitance.
-	The King is in our midst. His name is JESUS. What a wonderful it is. HE IS OUR SUCCESS ACCESS KEY.
+	We offer interview preparations and job assitance. Your probability of getting hired is relatively very high.
+	The King is in our midst. His name is JESUS. What wonder it is. HE IS OUR SUCCESS ACCESS KEY.
 	Thanks for being an ambassador of Landmark Technology. President</h1>
 <hr>
 <div style="text-align: center;">
